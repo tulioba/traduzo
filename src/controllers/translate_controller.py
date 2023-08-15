@@ -33,7 +33,7 @@ def index():
         )
 
     # languages = LanguageModel.list_dicts()
-    # return render_template("index.html", languages=languages)ssssssssssssssssss
+    # return render_template("index.html", languages=languages)
 
 
 # Req. 6
