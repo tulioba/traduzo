@@ -12,13 +12,20 @@
       <form method="post">
         <div class="text-input">
           <textarea name="text-to-translate" spellcheck="false" class="from-text" placeholder="O que deseja traduzir"></textarea>
-          <textarea spellcheck="false" readonly disabled class="to-text">Tradução</textarea>
+          {% if translated %}
+            <textarea spellcheck="false" readonly disabled class="to-text">{{ translated }}</textarea>
+          {% else %}
+            <textarea spellcheck="false" readonly disabled class="to-text">Tradução</textarea>
+          {% endif %}
         </div>
         <ul class="controls">
           <li class="row from">
-            <select name="translate-from"> # LISTAR IDIOMAS AQUI
+            <select name="translate-from">
               {% for language in languages %}
-                <option value="{{ language.name }}">{{ language.name.upper() }}</option>
+                <option value="{{ language.name }}"
+                {% if selected_translate_from == language.name %} selected {% endif %}>
+                  {{ language.name.upper() }}
+                </option>
               {% endfor %}
             </select>
           </li>
@@ -26,9 +33,12 @@
             <button class="tool" type="submit" formaction="/reverse">🔁</button>
           </div>
           <li class="row to">
-            <select name="translate-to"> # LISTAR IDIOMAS AQUI
+            <select name="translate-to">
               {% for language in languages %}
-                <option value="{{ language.name }}">{{ language.name.upper() }}</option>
+                <option value="{{ language.name }}"
+                {% if selected_translate_to == language.name %} selected {% endif %}>
+                  {{ language.name.upper() }}
+                </option>
               {% endfor %}
             </select>
           </li>
