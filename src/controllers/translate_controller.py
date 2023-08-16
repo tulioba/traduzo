@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, request
 
 from deep_translator import GoogleTranslator
 from models.language_model import LanguageModel
+from models.history_model import HistoryModel
 
 # from models.history_model import HistoryModel
 
@@ -53,4 +54,13 @@ def reverse():
         translate_from=translate_to,
         translate_to=translate_from,
         languages=languages,
+    )
+
+
+@translate_controller.route("/history", methods=["GET"])
+def save_history():
+    history = HistoryModel.list_dicts()
+    languages = LanguageModel.list_dicts()
+    return render_template(
+        "history.html", history=history, languages=languages
     )
